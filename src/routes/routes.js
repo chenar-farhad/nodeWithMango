@@ -2,6 +2,7 @@ import { Router } from "express";
 import ProductModel from "../models/products.model.js";
 const router = Router();
 
+/* -------START PRODUCT------- */
 /*--START insert --*/
 router.post("/product", async (req, res) => {
   const product = new ProductModel(req.body);
@@ -23,5 +24,21 @@ router.get("/product/:id", async (req, res) => {
   res.json(product);
 });
 /*  --------------END search by ID--------------  */
+
+/*  --------------START Update--------------  */
+router.put("/product/:id", async (req, res) => {
+  await ProductModel.findByIdAndUpdate(req.params.id, req.body);
+  res.json("product updated!");
+});
+/*  --------------END Update--------------  */
+
+/*  --------------START Delete--------------  */
+router.delete("/product/:id", async (req, res) => {
+  await ProductModel.findByIdAndRemove(req.params.id);
+  res.json("product deleted!");
+});
+/*  --------------END Delete--------------  */
+
+/* -------END PRODUCT------- */
 
 export default router;
